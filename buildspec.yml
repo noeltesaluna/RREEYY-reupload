@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install: 
+    runtime-versions:
+      python: 3.7
+  pre_build:
+    commands:
+      - echo deploying `date`
+  build:
+    commands:
+      - echo deploying static content to s3
+      - aws s3 sync . s3://rreeyymusic.com --acl public-read --cache-control "max-age=60"
+      
+  post_build:
+    commands:
+      - echo build completed on `date`
